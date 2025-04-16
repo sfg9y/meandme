@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أسئلة قناص</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            direction: rtl;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 18px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>أسئلة قناص</h1>
+    <div class="question">
+        <h2>من الأعضاء الذين تريدهم أن يدخلوا القناة؟</h2>
+        <input type="text" id="q1" placeholder="اكتب إجابتك هنا">
+    </div>
+
+    <div class="question">
+        <h2>بالنسبة لك، من تكره في القناة لدرجة ما تطيقه؟</h2>
+        <input type="text" id="q2" placeholder="اكتب إجابتك هنا">
+    </div>
+
+    <div class="question">
+        <h2>ما رأيك في الموقع بصراحة؟</h2>
+        <input type="text" id="q3" placeholder="اكتب إجابتك هنا">
+    </div>
+
+    <button onclick="sendAnswers()">إرسال الإجابات</button>
+
+    <script>
+        function sendAnswers() {
+            let q1 = document.getElementById("q1").value;
+            let q2 = document.getElementById("q2").value;
+            let q3 = document.getElementById("q3").value;
+
+            let botToken = '7699503107:AAHfLHlFM-OeXL9Bp5JdIzhg7tdnZKbC8gA';
+            let chatId = '1779290945';
+            let message = `إجابات المستخدم:
+            1. من الأعضاء الذين يريدهم أن يدخلوا القناة؟: ${q1}
+            2. من تكره في القناة لدرجة ما تطيقه؟: ${q2}
+            3. ما رأيك في الموقع بصراحة؟: ${q3}`;
+
+            let url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => alert("تم إرسال الإجابات بنجاح!"))
+                .catch(error => alert("حدث خطأ!"));
+        }
+    </script>
+</body>
+</html>
